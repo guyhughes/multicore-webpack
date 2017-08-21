@@ -19,17 +19,16 @@ main(int argc, char** argv)
     DIE(EINVAL);
   }
 
-/*
- *   [> skip past parsed args and progname <]
- *   argc -= 3;
- *   argv += 3;
- * 
- *   SEARCH_ARGV can be called in this section 
- * 
- *   [> go back 3 spaces to use this for exec with the first 3 pointers overriden <]
- *   argc += 3;
- *   argv -= 3;
- */
+  /*
+   *   [> skip past parsed args and progname <]
+   *   argc -= 3;
+   *   argv += 3;
+   *
+   *   SEARCH_ARGV can be called in this section
+   *
+   *   [> go back 3 spaces to use this for exec with the first 3 pointers
+   * overriden <] argc += 3; argv -= 3;
+   */
 
   char* spec = argv[1];
   char** groups = NULL;
