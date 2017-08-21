@@ -1,11 +1,12 @@
 {
   "name": "multicore-webpack",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "unset PYTHONHOME; node-gyp rebuild"
+    "preinstall": "unset PYTHONHOME; node-gyp rebuild",
+    "prepublish": "clang-format -i -style=Mozilla src/multicore.c src/multicore.h"
   },
   "repository": {
     "type": "git",
