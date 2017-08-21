@@ -1,0 +1,5 @@
+/src/*.o
+/src/*.dSYM
+/src/*.dSYM*
+/build
+/src/a.out

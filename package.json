@@ -1,0 +1,19 @@
+{
+  "name": "multicore-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guyhughes/multicore-webpack.git"
+  },
+  "author": "gxg",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/guyhughes/multicore-webpack/issues"
+  },
+  "homepage": "https://github.com/guyhughes/multicore-webpack#readme"
+}
