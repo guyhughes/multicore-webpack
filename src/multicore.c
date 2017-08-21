@@ -52,6 +52,8 @@ int main(int argc, char **argv)
     if (status != 0) {
       signal(SIGQUIT, SIG_IGN);
       kill(-getpid(), SIGQUIT);
+      for (int i=0; i < n_groups; ++i)
+        kill(pids[i], SIGTERM);
       LOG_FATAL("webpack failed");
       return EXIT_FAILURE;
     }
@@ -81,7 +83,18 @@ int fork_exec_webpack(char *config_name, char **argv)
   argv[0] = "webpack";
   argv[1] = "--config-name";
   argv[2] = config_name;
-  LOG(config_name);
+  char *str = malloc(0);
+  int argvlen = 1;
+  for (int i = 0; argv[i] != NULL; ++i) {
+    argvlen += strlen(argv[i]);
+  }
+  str = realloc(str, argvlen);
+  for (int i = 0; argv[i] != NULL; ++i) {
+    strcat(str, argv[i]);
+    strcat(str, " ");
+  }
+  
+  LOG(str);
   /* exec only returns on error */
   return execvp(argv[0], argv);
 }

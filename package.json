@@ -1,10 +1,11 @@
 {
   "name": "multicore-webpack",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node-gyp configure && node-gyp build"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/guyhughes/multicore-webpack/issues"
   },
-  "homepage": "https://github.com/guyhughes/multicore-webpack#readme"
+  "homepage": "https://github.com/guyhughes/multicore-webpack#readme",
+  "bin": {
+    "multicore-webpack": "./build/Release/multicore-webpack"
+  },
+  "dependencies": {
+    "node-gyp": "^3.6.2"
+  }
 }
