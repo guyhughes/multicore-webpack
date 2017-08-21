@@ -1,7 +1,6 @@
 #pragma once
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <sys/signal.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
