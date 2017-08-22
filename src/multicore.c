@@ -52,8 +52,10 @@ main(int argc, char** argv)
   for (;;) {
     int pid;
     if ((pid = waitpid(0, &status, WNOHANG)) == -1) {
-      perror(NULL);
-      exit(EXIT_FAILURE);
+      if (errno == ECHILD) {
+        LOG("all done");
+        break;
+      }
     }
     if (pid == 0) {
       continue;
