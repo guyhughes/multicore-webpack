@@ -47,6 +47,7 @@ main(int argc, char** argv)
     /* parent process only */
     pids[i] = (pid_t)ret;
   }
+  free(groups);
 
   int status = EXIT_SUCCESS;
   for (;;) {
@@ -95,18 +96,18 @@ fork_exec_webpack(char* config_name, char** argv)
   argv[0] = "webpack";
   argv[1] = "--config-name";
   argv[2] = config_name;
-  char* str = malloc(0);
   int argvlen = 1;
   for (int i = 0; argv[i] != NULL; ++i) {
     argvlen += strlen(argv[i]);
   }
-  str = realloc(str, argvlen);
+  char* str = malloc(argvlen);
   for (int i = 0; argv[i] != NULL; ++i) {
     strcat(str, argv[i]);
     strcat(str, " ");
   }
 
   LOG(str);
+  free(str);
   /* exec only returns on error */
   return execvp(argv[0], argv);
 }
