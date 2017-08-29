@@ -22,7 +22,11 @@
         exit(EXIT_FAILURE);                                                                                            \
     }
 
-#define WEBPACK "/usr/bin/true"
+#ifdef DEBUG
+#define WEBPACK_BINARY "/usr/bin/true"
+#else
+#define WEBPACK_BINARY "webpack"
+#endif
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
