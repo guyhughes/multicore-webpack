@@ -2,7 +2,7 @@
 multicore-webpack takes advantage of the multiple cores in your computer's
 processor to get your bundles out as fast as possible by spinning up a child
 process for each webpack config you target, and kills them all if one
-fails. 
+fails.
 
 Many webpack configs do so much file I/O and computationally intensive
 operations to build your bundles, but Node.js is not designed to take advantage
@@ -18,26 +18,37 @@ usage: multicore-webpack NAME[,NAME...] ::: ARGS...
            `webpack.config.js`.
 ```
 
-##  Quickstart 
+##  Quickstart
 
 webpack.config.js
 ```js
 module.exports = [ require('./a.webpack.js'), require('b.webpack.js') ];
 ```
 
-| a.webpack.js | b.webpack.js |
-| ------------ | ------------ |
-| ```js
+<table>
+<tr>
+<td>a.webpack.js</td>
+<td>b.webpack.js</td>
+</tr>
+<tr>
+<td>
+```js
 module.exports = {
-  name: 'alpha',
-  ...config
+name: 'alpha',
+      ...config
 };
-``` | ```js
+```
+</td>
+<td>
+```js
 module.exports = {
-  name: 'bravo',
-  ...config
+name: 'bravo',
+      ...config
 };
-``` |
+```
+</td>
+</tr>
+</table>
 
 ```bash
 npm install -g multicore-webpack
@@ -58,7 +69,7 @@ multicore-webpack alpha,bravo ::: --env dev
 you are throwing more config targets than you have CPU cores.
 
 - There is a hard limit of 99 webpack config targets at the moment to safeguard
-against a fork bomb. This can be raised to 65536 as soon as #3 is resolved. 
+against a fork bomb. This can be raised to 65536 as soon as #3 is resolved.
 
 ## Contributing
 
