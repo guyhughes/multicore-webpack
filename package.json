@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "preinstall": "unset PYTHONHOME; node-gyp rebuild",
-    "prepublishOnly": "clang-format -i -style=Mozilla src/multicore.c src/multicore.h"
+    "prepublishOnly": "clang-format -i -style=WebKit src/multicore.c src/multicore.h"
   },
   "repository": {
     "type": "git",

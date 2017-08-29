@@ -6,15 +6,21 @@
       "type": "executable",
       "conditions": [
         ['OS=="win"', {}, {
+          "cppflags": [
+          ],
           "cflags": [
+            "-D_FORTIFY_SOURCE=2",
             "-std=c11",
             "-Wall",
             "-Wextra",
             "-Wformat=2",
             "-Wformat-security",
             "-pedantic",
-            "-O3",
-            "-g"
+            "-Wshadow",
+            "-Wstrict-aliasing=2",
+            "-fstrict-aliasing",
+            "-O0",
+            "-g3"
           ]
         }]
       ]
