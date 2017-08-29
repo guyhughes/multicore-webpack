@@ -10,22 +10,24 @@
 
 #define SEARCH_ARGV(needle) search_argv(argc, argv, (needle));
 
-#define LOG(msg)                                                               \
-  fprintf(stderr,                                                              \
-          ANSI_COLOR_CYAN "[multicore-webpack]" ANSI_COLOR_RESET " %s\n",      \
-          msg);
-#define LOG_FATAL(msg)                                                         \
-  fprintf(stderr,                                                              \
-          ANSI_COLOR_CYAN "[multicore-webpack]" ANSI_COLOR_RED                 \
-                          " fatal: %s (%s:%d)\n" ANSI_COLOR_RESET,             \
-          msg,                                                                 \
-          __FILE__,                                                            \
-          __LINE__);
-#define DIE(errnum)                                                            \
-  {                                                                            \
-    LOG_FATAL(strerror((errnum)));                                             \
-    exit(EXIT_FAILURE);                                                        \
-  }
+#define LOG(msg)                                                           \
+    fprintf(stderr,                                                        \
+        ANSI_COLOR_MAGENTA "[multicore-webpack]" ANSI_COLOR_RESET " %s\n", \
+        msg);
+
+#define LOG_FATAL(msg)                                              \
+    fprintf(stderr,                                                 \
+        ANSI_COLOR_MAGENTA "[multicore-webpack]" ANSI_COLOR_RED     \
+                           " fatal: %s (%s:%d)\n" ANSI_COLOR_RESET, \
+        msg, __FILE__, __LINE__);
+
+#define DIE(errnum)                    \
+    {                                  \
+        LOG_FATAL(strerror((errnum))); \
+        exit(EXIT_FAILURE);            \
+    }
+
+#define WEBPACK "/usr/bin/true"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
