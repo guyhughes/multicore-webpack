@@ -14,7 +14,7 @@ int main(const int argc, const char *__argv[const restrict 4])
         DIE(EINVAL);
     }
 
-    const size_t argvwidth = (argc+1) * sizeof(char *);
+    const size_t argvwidth = (argc + 1) * sizeof(char *);
     char **const argv = malloc(argvwidth);
     memcpy(argv, __argv, argvwidth);
     char *const spec = argv[1];
