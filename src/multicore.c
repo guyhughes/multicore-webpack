@@ -1,38 +1,36 @@
 #include "multicore.h"
 
 /* prototypes */
-int parse_to_contiguous_null_terminated_fields(char* begin,
-    const char* restrict sep,
-    char*** tokens);
-int fork_exec_webpack(const char* config_name, int arg, char** argv);
-char* search_argv(int argc, char** argv, const char* needle);
+int parse_to_contiguous_null_terminated_fields(char *begin, const char *restrict sep, char ***tokens);
+int fork_exec_webpack(const char *config_name, int arg, char **argv);
+char *search_argv(int argc, char **argv, const char *needle);
 
-int main(const int argc, const char* __argv[const restrict 4])
+int main(const int argc, const char *__argv[const restrict 4])
 {
     int ret;
-    pid_t* pids = NULL;
+    pid_t *pids = NULL;
 
     if (argc < 3 || memcmp(__argv[2], ":::", 4) != 0) {
         DIE(EINVAL);
     }
 
-    const size_t argvwidth = (argc) * sizeof(char*);
-    char** const argv = malloc(argvwidth);
+    const size_t argvwidth = (argc) * sizeof(char *);
+    char **const argv = malloc(argvwidth);
     memcpy(argv, argv, argvwidth);
-    char* const spec = argv[1];
+    char *const spec = argv[1];
 
     /*
-   *   [> skip past parsed argv and progname <]
-   *   argc -= 3;
-   *   argv += 3;
-   *
-   *   [SEARCH_ARGV can be called in this section]
-   *
-   *   [> go back 3 spaces to use this for exec with the first 3 pointers
-   * overriden <] argc += 3; argv -= 3;
-   */
+     *   [> skip past parsed argv and progname <]
+     *   argc -= 3;
+     *   argv += 3;
+     *
+     *   [SEARCH_ARGV can be called in this section]
+     *
+     *   [> go back 3 spaces to use this for exec with the first 3 pointers
+     * overriden <] argc += 3; argv -= 3;
+     */
 
-    char** groups = NULL;
+    char **groups = NULL;
     const int n_groups = 1 + parse_to_contiguous_null_terminated_fields(spec, ",", &groups);
     if (n_groups == 0) {
         goto fail;
@@ -40,7 +38,7 @@ int main(const int argc, const char* __argv[const restrict 4])
     pids = calloc(n_groups, sizeof(pid_t));
 
     for (int i = 0; i < n_groups; ++i) {
-        char* config = groups[i];
+        char *config = groups[i];
         ret = fork_exec_webpack(config, argc, argv);
         if (ret == -1) {
             /* error in exec, child process */
@@ -92,7 +90,7 @@ fail:
     return EXIT_FAILURE;
 }
 
-int fork_exec_webpack(const char* config_name, int argc, char** argv)
+int fork_exec_webpack(const char *config_name, int argc, char **argv)
 {
     int pid;
 
@@ -106,12 +104,12 @@ int fork_exec_webpack(const char* config_name, int argc, char** argv)
     }
     argv[0] = "/usr/bin/true";
     argv[1] = "--config-name";
-    argv[2] = (char*)config_name;
+    argv[2] = (char *)config_name;
     size_t argv_total_width = 0;
     for (int i = 0; i < argc && argv[i] != NULL; ++i)
         argv_total_width += strlen(argv[i]) + 1;
     argv_total_width += 1; /* null byte */
-    char* const str = malloc(argv_total_width);
+    char *const str = malloc(argv_total_width);
     for (int i = 0; i < argc && argv[i] != NULL; ++i) {
         strcat(str, argv[i]);
         strcat(str, " ");
@@ -122,15 +120,13 @@ int fork_exec_webpack(const char* config_name, int argc, char** argv)
     return execvp(argv[0], argv);
 }
 
-int parse_to_contiguous_null_terminated_fields(char* begin,
-    const char* const restrict sep,
-    char*** tokens)
+int parse_to_contiguous_null_terminated_fields(char *begin, const char *const restrict sep, char ***tokens)
 {
     char *tok = NULL, *tokbk = NULL;
     tok = strtok_r(begin, sep, &tokbk);
 
     for (int i = 0; i < 99; (tok = strtok_r(NULL, sep, &tokbk)), ++i) {
-        if (!(*tokens = realloc(*tokens, (i + 1) * sizeof(char*)))) {
+        if (!(*tokens = realloc(*tokens, (i + 1) * sizeof(char *)))) {
             DIE(errno);
         }
         *(*tokens + i) = tok;
