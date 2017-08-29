@@ -1,18 +1,19 @@
 {
   "name": "multicore-webpack",
   "version": "1.2.1-0",
-  "description": "",
+  "description": "Spins up multiple processes to compile multiple webpack configs. Requires webpack 3. usage: `npx multicore-webpack target1,target2 ::: --env dev`",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "preinstall": "unset PYTHONHOME; node-gyp rebuild",
-    "prepublishOnly": "clang-format -i -style=file src/multicore.c src/multicore.h"
+    "preversion": "clang-format -i -style=file src/multicore.c src/multicore.h",
+    "postversion": "(git push origin && git push origin --tags ) & npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ypcrts/multicore-webpack.git"
   },
-  "author": "gxg",
+  "author": "ypcrts",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/ypcrts/multicore-webpack/issues"
@@ -23,5 +24,8 @@
   },
   "dependencies": {
     "node-gyp": "^3.6.2"
+  },
+  "peerDependencies": {
+    "webpack": ">=3.0.0"
   }
 }
