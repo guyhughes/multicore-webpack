@@ -14,9 +14,9 @@ int main(const int argc, const char *__argv[const restrict 4])
         DIE(EINVAL);
     }
 
-    const size_t argvwidth = (argc) * sizeof(char *);
+    const size_t argvwidth = (argc+1) * sizeof(char *);
     char **const argv = malloc(argvwidth);
-    memcpy(argv, argv, argvwidth);
+    memcpy(argv, __argv, argvwidth);
     char *const spec = argv[1];
 
     /*
@@ -31,7 +31,7 @@ int main(const int argc, const char *__argv[const restrict 4])
      */
 
     char **groups = NULL;
-    const int n_groups = 1 + parse_to_contiguous_null_terminated_fields(spec, ",", &groups);
+    const int n_groups = parse_to_contiguous_null_terminated_fields(spec, ",", &groups);
     if (n_groups == 0) {
         goto fail;
     }
@@ -102,13 +102,12 @@ int fork_exec_webpack(const char *config_name, int argc, char **argv)
         /* this is the parent */
         return pid;
     }
-    argv[0] = "/usr/bin/true";
+    argv[0] = WEBPACK_BINARY;
     argv[1] = "--config-name";
     argv[2] = (char *)config_name;
-    size_t argv_total_width = 0;
+    size_t argv_total_width = 1; /* null byte */
     for (int i = 0; i < argc && argv[i] != NULL; ++i)
         argv_total_width += strlen(argv[i]) + 1;
-    argv_total_width += 1; /* null byte */
     char *const str = malloc(argv_total_width);
     for (int i = 0; i < argc && argv[i] != NULL; ++i) {
         strcat(str, argv[i]);
