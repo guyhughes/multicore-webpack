@@ -1,6 +1,6 @@
 {
   "name": "multicore-webpack",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Spins up multiple processes to compile multiple webpack configs. Requires webpack 3. usage: `npx multicore-webpack target1,target2 ::: --env dev`",
   "main": "index.js",
   "scripts": {
