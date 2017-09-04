@@ -32,20 +32,17 @@ module.exports = [ require('./a.webpack.js'), require('b.webpack.js') ];
 </tr>
 <tr>
 <td>
-```js
-module.exports = {
-name: 'alpha',
-      ...config
-};
-```
+        module.exports = {
+        name: 'alpha',
+              ...config
+        };
+
 </td>
 <td>
-```js
-module.exports = {
-name: 'bravo',
-      ...config
-};
-```
+        module.exports = {
+        name: 'bravo',
+              ...config
+        };
 </td>
 </tr>
 </table>
